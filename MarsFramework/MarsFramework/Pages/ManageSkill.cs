@@ -1,12 +1,15 @@
 ﻿using MarsFramework.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using RelevantCodes.ExtentReports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace MarsFramework.Pages
 {
@@ -37,27 +40,38 @@ namespace MarsFramework.Pages
             ManageSkillTab.Click();
 
             //Page Nevigation and Delete Selected Skill
-            while (true)
+            try
             {
-                for (var i = 1; i <= 5; i++)
+                while (true)
                 {
-                    Thread.Sleep(1000);
-                    var Title = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
-                    if (Title == "fgb")
+                    for (var i = 1; i <= 5; i++)
                     {
-                        // Click on the selected skill' Delete icon
-                        GlobalDefinitions.driver.FindElement(By.XPath("//tr[" + i + "]//td[8]//i[3]")).Click();
                         Thread.Sleep(1000);
-                        // Click on the "Yes" button of the popup Dialog box
-                        GlobalDefinitions.driver.FindElement(By.XPath("//button[@class='ui icon positive right labeled button']")).Click();
-                        Thread.Sleep(500);
-                        return;
+                        var Title = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
+                        if (Title == "qweq")
+                        {
+                            // Click on the selected skill' Delete icon
+                            GlobalDefinitions.driver.FindElement(By.XPath("//tr[" + i + "]//td[8]//i[3]")).Click();
+                            Thread.Sleep(1000);
+                            // Click on the "Yes" button of the popup Dialog box
+                            GlobalDefinitions.driver.FindElement(By.XPath("//button[@class='ui icon positive right labeled button']")).Click();
+                            Thread.Sleep(500);
+                            return;
+                        }
+
                     }
+                    //Click on Next Page Button [>]
+                    NextPageBtn.Click();
+                    Thread.Sleep(500);
                 }
-                //Click on Next Page Button [>]
-                NextPageBtn.Click();
-                Thread.Sleep(500);
             }
+            catch (Exception)
+            {
+                Thread.Sleep(500);
+                Base.test.Log(LogStatus.Info, "Title was not there");
+            }
+
+
         }
     }
 }
