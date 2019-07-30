@@ -63,6 +63,7 @@ namespace MarsFramework.Pages
             Thread.Sleep(1500);
             
             string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("//A[@class='item'][text()='Mars Logo']")).Text;
+            Thread.Sleep(1500);
 
             if (text == "MarsLogo")
             {

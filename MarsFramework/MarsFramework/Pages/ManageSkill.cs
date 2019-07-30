@@ -36,7 +36,6 @@ namespace MarsFramework.Pages
         internal void DeleteManageSkill()
         {
             //Click on ShareSkill Tab
-            Thread.Sleep(1000);
             ManageSkillTab.Click();
 
             //Page Nevigation and Delete Selected Skill
@@ -46,9 +45,10 @@ namespace MarsFramework.Pages
                 {
                     for (var i = 1; i <= 5; i++)
                     {
-                        Thread.Sleep(1000);
-                        var Title = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
-                        if (Title == "qweq")
+                        Thread.Sleep(500);
+                        //*[@id="listing-management-section"]/div[2]/div[1]/table/tbody/tr[1]/td[3]
+                        string Title = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
+                        if (Title == "xyz")
                         {
                             // Click on the selected skill' Delete icon
                             GlobalDefinitions.driver.FindElement(By.XPath("//tr[" + i + "]//td[8]//i[3]")).Click();
@@ -58,20 +58,16 @@ namespace MarsFramework.Pages
                             Thread.Sleep(500);
                             return;
                         }
-
                     }
                     //Click on Next Page Button [>]
                     NextPageBtn.Click();
-                    Thread.Sleep(500);
                 }
             }
             catch (Exception)
             {
-                Thread.Sleep(500);
-                Base.test.Log(LogStatus.Info, "Title was not there");
+                Assert.Fail("Title is not there !");
+                Base.test.Log(LogStatus.Info, "Can not find the Title");
             }
-
-
         }
     }
 }

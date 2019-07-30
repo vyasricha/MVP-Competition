@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoItX3Lib;
+using NUnit.Framework;
+using RelevantCodes.ExtentReports;
 
 namespace MarsFramework.Pages
 {
@@ -86,66 +88,56 @@ namespace MarsFramework.Pages
         internal void AddSkill()
         {
             //Click on ShareSkill Tab
-            Thread.Sleep(1000);
             SkillTab.Click();
 
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkill");
+            Thread.Sleep(1000);
 
             //Add in ShareSkill Title
-            Thread.Sleep(1000);
             SkillTitle.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
+            Assert.That(SkillTitle != null);
+           
             //Add in ShareSkill Discription
-            Thread.Sleep(1000);
             SkillDescription.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
-
+            Assert.That(SkillDescription != null);
+   
             //Click on ShareSkill Category
-            Thread.Sleep(1000);
             SkillCategory.Click();
             //Select Category
-            Thread.Sleep(500);
             SkillCategory.SendKeys(Keys.ArrowDown + Keys.ArrowDown + Keys.Enter);
-
             //Click on ShareSkill SubCategory
-            Thread.Sleep(1000);
             SkillSubCategory.Click();
-            //Select Category
-            Thread.Sleep(500);
+            //Select SubCategory
             SkillSubCategory.SendKeys(Keys.ArrowDown + Keys.ArrowDown + Keys.Enter);
 
             for (int i = 1; i < 3; i++)
             {
                 //Click on ShareSkill Tag
-                Thread.Sleep(1000);
                 SkillTag.Click();
-                Thread.Sleep(1000);
-             //   SkillTag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Tag'" + i + "'") + Keys.Enter);
-                  if (i == 1)
-                  {
+                if (i == 1)
+                {
                       //Add in Tag1
                       Thread.Sleep(1000);
                       SkillTag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Tag1") + Keys.Enter);
-                  }
-                  else
-                  {
+                }
+                else
+                {
                       //Add in Tag2
                       Thread.Sleep(1000);
                       SkillTag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Tag2") + Keys.Enter);
-                  } 
+                } 
             }
 
             //Click on redio button [One-off service]
             ServiceType.Click();
 
             //Click on redio button [On-site]
-            Thread.Sleep(1000);
             LocationType.Click();
 
             //Add Start Date
-            Thread.Sleep(1000);
             StartDate.SendKeys("08/11/2019");
             //Add End Date
-            Thread.Sleep(1000);
             EndDate.SendKeys("09/11/2019");
 
             //Tick on weekdays checkbox, Add Start time and End time
@@ -160,10 +152,8 @@ namespace MarsFramework.Pages
             }
 
             //Click on Skill Trade [Credit]
-            Thread.Sleep(1000);
             SkillTrade.Click();
             //Add value in Credit
-            Thread.Sleep(1000);
             Credit.SendKeys("6"); 
 
             //Upload File using AutoIT
@@ -176,12 +166,29 @@ namespace MarsFramework.Pages
             autoIt.Send("{ENTER}");
 
             //Click on Active [Active]
-            Thread.Sleep(1000);
             Active.Click();
 
             //Click on Save Button
-            Thread.Sleep(1000);
             SaveBtn.Click();
+        }
+        internal void ValidateAddedSkill()
+        {
+            try
+            {
+                //Go to Manage Listing Tab
+                GlobalDefinitions.driver.FindElement(By.XPath("//a[contains(text(),'Manage Listings')]")).Click();
+                Thread.Sleep(1000);
+                string ShareTitle = GlobalDefinitions.driver.FindElement(By.XPath("//tr[1]/td[3]")).Text;
+                Thread.Sleep(1000);
+                if (ShareTitle == "Testing")
+                {
+                    Assert.Fail("Skill is already Exist!");
+                }
+            }
+            catch (Exception)
+            {
+                Base.test.Log(LogStatus.Info, "Can not find the Skill");
+            }
         }
     }
 }

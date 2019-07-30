@@ -124,6 +124,8 @@
     </Compile>
     <Compile Include="Global\Base.cs" />
     <Compile Include="Global\GlobalDefinitions.cs" />
+    <Compile Include="Pages\Education-Certi.cs" />
+    <Compile Include="Pages\Language-Skill.cs" />
     <Compile Include="Pages\ManageSkill.cs" />
     <Compile Include="Pages\ShareSkill.cs" />
     <Compile Include="Pages\SignIn.cs" />

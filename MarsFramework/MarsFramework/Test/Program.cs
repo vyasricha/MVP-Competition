@@ -16,7 +16,6 @@ namespace MarsFramework
         [Category("Sprint1")]
         class Tenant : Global.Base
         {
-
             [Test]
             public void AddProfile()
             {
@@ -25,10 +24,29 @@ namespace MarsFramework
 
                 // Create an class and object to call the method
                  Profile obj = new Profile();
-                 obj.EditProfile();
-
-                
+                 obj.EditProfile();   
             }
+            [Test]
+            public void LanguageAndSkill()
+            {
+                // Creates a toggle for the given test, adds all log events under it    
+                test = extent.StartTest("Search for a Property");
+
+                // Create an class and object to call the method
+                LanguageAndSkill obj = new LanguageAndSkill();
+                obj.AddLanguageAndSkill();
+            }
+            [Test]
+            public void EducationAndCertification()
+            {
+                // Creates a toggle for the given test, adds all log events under it    
+                test = extent.StartTest("Search for a Property");
+
+                // Create an class and object to call the method
+                EducationAndCertification obj = new EducationAndCertification();
+                obj.AddEducationAndCertification();
+            }
+
             [Test]
             public void AddValidSkill()
             {
@@ -39,7 +57,21 @@ namespace MarsFramework
                  ShareSkill skill = new ShareSkill();
                  skill.AddSkill();
 
-                // Verify if add the skill successfully and navigate to ListingManagement
+                // Verify if add the skill successfully and navigate to Manage Listing
+                Assert.IsNotNull(GlobalDefinitions.driver.FindElement(By.XPath("//a[contains(text(),'Manage Listings')]")));
+            }
+
+            [Test]
+            public void ValidSkill()
+            {
+                // Creates a toggle for the given test, adds all log events under it    
+                test = extent.StartTest("Save a valid skill in field");
+
+                // Call the Share Skill method
+                ShareSkill validskill = new ShareSkill();
+                validskill.ValidateAddedSkill();
+
+                // Verify if add the skill successfully and navigate to Manage Listing
                 Assert.IsNotNull(GlobalDefinitions.driver.FindElement(By.XPath("//a[contains(text(),'Manage Listings')]")));
             }
             [Test]
