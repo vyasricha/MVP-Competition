@@ -46,13 +46,13 @@ namespace MarsFramework.Pages
                     for (var i = 1; i <= 5; i++)
                     {
                         Thread.Sleep(500);
-                        //*[@id="listing-management-section"]/div[2]/div[1]/table/tbody/tr[1]/td[3]
                         string Title = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
                         if (Title == "xyz")
                         {
                             // Click on the selected skill' Delete icon
                             GlobalDefinitions.driver.FindElement(By.XPath("//tr[" + i + "]//td[8]//i[3]")).Click();
                             Thread.Sleep(1000);
+
                             // Click on the "Yes" button of the popup Dialog box
                             GlobalDefinitions.driver.FindElement(By.XPath("//button[@class='ui icon positive right labeled button']")).Click();
                             Thread.Sleep(500);

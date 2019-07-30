@@ -67,7 +67,7 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.XPath, Using = "(//INPUT[@name='skillTrades'])[2]")]
         private IWebElement SkillTrade { get; set; }
 
-        //Finding the End Date
+        //Finding the Credit textbox
         [FindsBy(How = How.Name, Using = "charge")]
         private IWebElement Credit { get; set; }
 
